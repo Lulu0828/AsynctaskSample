@@ -46,6 +46,7 @@ public class AsyncTastActivity extends Activity{
 					protected Hashtable<String, SoftReference<Drawable>> doInBackground(
 							List<String>... params) {
 						// TODO 自动生成的方法存根
+						Hashtable<String, SoftReference<Drawable>> table = new Hashtable<String, SoftReference<Drawable>>();
 						return null;
 					}
         	

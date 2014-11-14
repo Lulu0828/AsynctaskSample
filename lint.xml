@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
+    <issue id="HandlerLeak">
+        <ignore path="src/com/dome/asynctasksample/ThreadHandlerActivity.java" />
+    </issue>
     <issue id="HardcodedText" severity="ignore" />
 </lint>

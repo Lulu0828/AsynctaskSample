@@ -1,7 +1,9 @@
 package com.dome.asynctasksample;
 
 import java.lang.ref.SoftReference;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
@@ -21,6 +23,7 @@ public class AsyncTastActivity extends Activity{
 	
 	private ImageAdapter listItemAdapter;
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO 自动生成的方法存根
@@ -47,10 +50,34 @@ public class AsyncTastActivity extends Activity{
 							List<String>... params) {
 						// TODO 自动生成的方法存根
 						Hashtable<String, SoftReference<Drawable>> table = new Hashtable<String, SoftReference<Drawable>>();
-						return null;
+						List<String> imageUriList = params[0];
+						for (String urlStr : imageUriList) {
+							try {
+								URL url = new URL(urlStr);
+								Drawable drawable = Drawable.createFromStream(url.openStream(), "src");
+						        table.put(urlStr, new SoftReference<Drawable>(drawable));
+						    } catch (Exception e) {
+						    	e.printStackTrace();
+						    }
+						}
+						return table;
 					}
-        	
+
+					@Override
+					protected void onPostExecute(
+						Hashtable<String, SoftReference<Drawable>> result) {
+						super.onPostExecute(result);
+						Collection<SoftReference<Drawable>> col = result.values();
+						for (SoftReference<Drawable> ref : col) {
+					    	HashMap<String, Object> map = new HashMap<String, Object>();
+					    	map.put("ItemImage", ref.get());
+					    	itemList.add(map);
+					    }
+						listItemAdapter.notifyDataSetChanged();
+					}
         };
+
+		task.execute(urlList);
 	}
 
 }

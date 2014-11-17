@@ -36,7 +36,7 @@ public class ThreadHandlerActivity extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO 自动生成的方法存根
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.list_item);
+		setContentView(R.layout.listview);
 		
 		listView = (ListView)findViewById(R.id.listview);
 
